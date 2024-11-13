@@ -10,10 +10,11 @@ web3 = "*"
 [dev-packages]
 ruff = "*"
 pyright = "*"
+black = "*"
 
 [requires]
 python_version = "3.12"
 
 [scripts]
-lint = "bash -c 'ruff check . && pyright .'"
+lint = "bash -c 'black --check . && ruff check . && pyright .'"
 starter_kit = "python -m starter_kit"

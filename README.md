@@ -25,3 +25,5 @@ bindings for the Uniswap V2 Router contract and ERC20 token contracts.
 3. Install dependencies with `pipenv install`.
 4. Duplicate `.env.template` as `.env` and set the required environment variables.
 5. Run the script with `pipenv run starter_kit`.
+
+Static code analysis can be executed with `pipenv run lint`.
