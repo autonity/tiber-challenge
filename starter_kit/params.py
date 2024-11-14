@@ -15,7 +15,3 @@ UNISWAP_NTN_USDC_PAIR_ADDRESS = cast(ChecksumAddress, "0xTBC")
 
 OWN_VALIDATOR_ADDRESS = cast(ChecksumAddress, os.environ["OWN_VALIDATOR_ADDRESS"])
 RECIPIENT_ADDRESS = cast(ChecksumAddress, os.environ["RECIPIENT_ADDRESS"])
-
-NTN_DECIMALS = 18
-USDC_DECIMALS = 6
-WATN_DECIMALS = 18

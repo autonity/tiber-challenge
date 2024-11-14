@@ -1,12 +1,11 @@
 import random
 from typing import Callable, List, Tuple, TypeAlias, cast
 
-from autonity import Autonity
+from autonity import Autonity, ERC20
 from eth_typing import ChecksumAddress
 from web3 import Web3
 
 from . import params
-from .bindings.ierc20 import IERC20
 from .bindings.uniswap_v2_router_02 import UniswapV2Router02
 
 Task: TypeAlias = Callable[[Web3], None]
@@ -26,7 +25,7 @@ def task(f: Task) -> Task:
 def transfer(w3: Web3) -> None:
     """Transfers 0.1 NTN to a recipient specified in .env."""
     autonity = Autonity(w3)
-    amount = int(0.1 * 10**params.NTN_DECIMALS)
+    amount = int(0.1 * 10 ** autonity.decimals())
     tx = autonity.transfer(params.RECIPIENT_ADDRESS, amount).transact()
     w3.eth.wait_for_transaction_receipt(tx)
 
@@ -36,7 +35,7 @@ def bond(w3: Web3) -> None:
     """Bonds 0.1 NTN to a random validator."""
     autonity = Autonity(w3)
     validator_address = random.choice(autonity.get_validators())
-    amount = int(0.1 * 10**params.NTN_DECIMALS)
+    amount = int(0.1 * 10 ** autonity.decimals())
     tx = autonity.bond(validator_address, amount).transact()
     w3.eth.wait_for_transaction_receipt(tx)
     stakes.append((validator_address, amount))
@@ -56,7 +55,7 @@ def unbond(w3: Web3) -> None:
 def approve(w3: Web3) -> None:
     """Approves the transfer of 0.1 NTN by a recipient specified in .env."""
     autonity = Autonity(w3)
-    amount = int(0.1 * 10**params.NTN_DECIMALS)
+    amount = int(0.1 * 10 ** autonity.decimals())
     tx = autonity.approve(params.RECIPIENT_ADDRESS, amount).transact()
     w3.eth.wait_for_transaction_receipt(tx)
 
@@ -89,8 +88,8 @@ def activate_validator(w3: Web3) -> None:
 @task
 def swap_exact_tokens_for_tokens(w3: Web3) -> None:
     """Swaps 0.1 USDC for NTN."""
-    usdc = IERC20(w3, params.USDC_ADDRESS)
-    usdc_amount = int(0.1 * 10**params.USDC_DECIMALS)
+    usdc = ERC20(w3, params.USDC_ADDRESS)
+    usdc_amount = int(0.1 * 10 ** usdc.decimals())
     approve_tx = usdc.approve(params.UNISWAP_ROUTER_ADDRESS, usdc_amount).transact()
     w3.eth.wait_for_transaction_receipt(approve_tx)
 
@@ -110,13 +109,13 @@ def swap_exact_tokens_for_tokens(w3: Web3) -> None:
 @task
 def add_liquidity(w3: Web3) -> None:
     """Adds 1 NTN and 0.1 USDC to the Uniswap liquidity pool."""
-    ntn = IERC20(w3, params.NTN_ADDRESS)
-    ntn_amount = int(1 * 10**params.NTN_DECIMALS)
+    ntn = ERC20(w3, params.NTN_ADDRESS)
+    ntn_amount = int(1 * 10 ** ntn.decimals())
     approve_tx_2 = ntn.approve(params.UNISWAP_ROUTER_ADDRESS, ntn_amount).transact()
     w3.eth.wait_for_transaction_receipt(approve_tx_2)
 
-    usdc = IERC20(w3, params.USDC_ADDRESS)
-    usdc_amount = int(0.1 * 10**params.USDC_DECIMALS)
+    usdc = ERC20(w3, params.USDC_ADDRESS)
+    usdc_amount = int(0.1 * 10 ** usdc.decimals())
     approve_tx_1 = usdc.approve(params.UNISWAP_ROUTER_ADDRESS, usdc_amount).transact()
     w3.eth.wait_for_transaction_receipt(approve_tx_1)
 
@@ -139,7 +138,7 @@ def add_liquidity(w3: Web3) -> None:
 @task
 def remove_liquidity(w3: Web3) -> None:
     """Removes all funds from the Uniswap liquidity pool."""
-    uniswap_ntn_usdc_pair = IERC20(w3, params.UNISWAP_NTN_USDC_PAIR_ADDRESS)
+    uniswap_ntn_usdc_pair = ERC20(w3, params.UNISWAP_NTN_USDC_PAIR_ADDRESS)
     sender_address = cast(ChecksumAddress, w3.eth.default_account)
     liquidity_amount = uniswap_ntn_usdc_pair.balance_of(sender_address)
 
