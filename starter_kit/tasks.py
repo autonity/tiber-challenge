@@ -15,13 +15,6 @@ tasks: List[Task] = []
 stakes: List[Tuple[ChecksumAddress, int]] = []
 
 
-def task(f: Task) -> Task:
-    """Decorator that registers 'task' functions."""
-    tasks.append(f)
-    return f
-
-
-@task
 def transfer(w3: Web3) -> None:
     """Transfers 0.1 NTN to a recipient specified in .env."""
     autonity = Autonity(w3)
@@ -30,7 +23,9 @@ def transfer(w3: Web3) -> None:
     w3.eth.wait_for_transaction_receipt(tx)
 
 
-@task
+tasks.append(transfer)
+
+
 def bond(w3: Web3) -> None:
     """Bonds 0.1 NTN to a random validator."""
     autonity = Autonity(w3)
@@ -41,7 +36,9 @@ def bond(w3: Web3) -> None:
     stakes.append((validator_address, amount))
 
 
-@task
+tasks.append(bond)
+
+
 def unbond(w3: Web3) -> None:
     """Unbonds some of the stake previously bonded."""
     if stakes:
@@ -51,7 +48,9 @@ def unbond(w3: Web3) -> None:
         w3.eth.wait_for_transaction_receipt(tx)
 
 
-@task
+tasks.append(unbond)
+
+
 def approve(w3: Web3) -> None:
     """Approves the transfer of 0.1 NTN by a recipient specified in .env."""
     autonity = Autonity(w3)
@@ -60,7 +59,9 @@ def approve(w3: Web3) -> None:
     w3.eth.wait_for_transaction_receipt(tx)
 
 
-@task
+tasks.append(approve)
+
+
 def change_comission_rate(w3: Web3) -> None:
     """Changes commission rate to a random value betwen 0% and 100%."""
     autonity = Autonity(w3)
@@ -69,7 +70,9 @@ def change_comission_rate(w3: Web3) -> None:
     w3.eth.wait_for_transaction_receipt(tx)
 
 
-@task
+tasks.append(change_comission_rate)
+
+
 def pause_validator(w3: Web3) -> None:
     """Pauses the sender's validator."""
     autonity = Autonity(w3)
@@ -77,7 +80,9 @@ def pause_validator(w3: Web3) -> None:
     w3.eth.wait_for_transaction_receipt(tx)
 
 
-@task
+tasks.append(pause_validator)
+
+
 def activate_validator(w3: Web3) -> None:
     """Activates the sender's validator."""
     autonity = Autonity(w3)
@@ -85,7 +90,9 @@ def activate_validator(w3: Web3) -> None:
     w3.eth.wait_for_transaction_receipt(tx)
 
 
-@task
+tasks.append(activate_validator)
+
+
 def swap_exact_tokens_for_tokens(w3: Web3) -> None:
     """Swaps 0.1 USDC for NTN."""
     usdc = ERC20(w3, params.USDC_ADDRESS)
@@ -106,7 +113,9 @@ def swap_exact_tokens_for_tokens(w3: Web3) -> None:
     w3.eth.wait_for_transaction_receipt(swap_tx)
 
 
-@task
+tasks.append(swap_exact_tokens_for_tokens)
+
+
 def add_liquidity(w3: Web3) -> None:
     """Adds 1 NTN and 0.1 USDC to the Uniswap liquidity pool."""
     ntn = ERC20(w3, params.NTN_ADDRESS)
@@ -135,7 +144,9 @@ def add_liquidity(w3: Web3) -> None:
     w3.eth.wait_for_transaction_receipt(add_liquidity_tx)
 
 
-@task
+tasks.append(add_liquidity)
+
+
 def remove_liquidity(w3: Web3) -> None:
     """Removes all funds from the Uniswap liquidity pool."""
     uniswap_ntn_usdc_pair = ERC20(w3, params.UNISWAP_NTN_USDC_PAIR_ADDRESS)
@@ -160,3 +171,6 @@ def remove_liquidity(w3: Web3) -> None:
             deadline=deadline,
         ).transact()
         w3.eth.wait_for_transaction_receipt(remove_liquidity_tx)
+
+
+tasks.append(remove_liquidity)
