@@ -1,11 +1,8 @@
-# tibernet-challenge
+# Autonity Tiber Challenge
 
-GitHub repository for the Autonity Tibernet Challenge.
+GitHub repository for the Autonity Tiber Challenge.
 
-## Use-case Testing Starter Kit
-
-Example code for the Use-case Testing activity of the Tiber Challange
-can be found in the [`starter_kit`](./starter_kit/) directory.
+Example code for the Use-case Testing activity of the Tiber Challange.
 
 Participants can earn points by running the script as-is, but in order to get
 awarded with a higher score it is recommended to modify and optimize the code.
