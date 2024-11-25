@@ -1,11 +1,12 @@
 import random
 from typing import Callable, List, Tuple, TypeAlias, cast
 
-from autonity import Autonity, ERC20
+from autonity import Autonity
 from eth_typing import ChecksumAddress
 from web3 import Web3
 
 from . import params
+from .bindings.erc20 import ERC20
 from .bindings.uniswap_v2_router_02 import UniswapV2Router02
 
 Task: TypeAlias = Callable[[Web3], None]
