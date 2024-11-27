@@ -1,29 +1,27 @@
 import logging
-import random
 import os
-import time
-from typing import cast
+import random
 
-from autonity import networks
-from web3 import Web3
+from web3 import HTTPProvider, Web3
 from web3.exceptions import ContractLogicError
-from web3.middleware import Middleware, SignAndSendRawMiddlewareBuilder
+from web3.middleware.signing import construct_sign_and_send_raw_middleware
 
+from .params import RPC_URL
 from .tasks import tasks
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("starter_kit")
 
-w3 = Web3(networks.piccadilly.http_provider)
+w3 = Web3(HTTPProvider(RPC_URL))
 
 sender_account = w3.eth.account.from_key(os.environ["SENDER_PRIVATE_KEY"])
 w3.eth.default_account = sender_account.address
-signer_middleware = cast(
-    Middleware, SignAndSendRawMiddlewareBuilder.build(sender_account)
-)
+
+# Set `sender_account` as the signer of all transactions
+signer_middleware = construct_sign_and_send_raw_middleware(sender_account)
 w3.middleware_onion.add(signer_middleware)
 
-while True:
+for _ in range(10_000):
     task = random.choice(tasks)
     logger.info(task.__name__)
     try:
@@ -31,4 +29,3 @@ while True:
     except ContractLogicError as e:
         # Contract execution reverted
         logger.warning(e)
-    time.sleep(1)
