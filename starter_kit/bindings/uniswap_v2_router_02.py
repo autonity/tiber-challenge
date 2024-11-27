@@ -1,5 +1,7 @@
 """UniswapV2Router02 contract binding and data structures."""
 
+### THIS FILE HAS BEEN AUTO-GENERATED, DO NOT MODIFY IT ###
+
 import typing
 
 import eth_typing
