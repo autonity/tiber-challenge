@@ -25,4 +25,4 @@ You need these installed on your system:
 1. Fork and clone this repository.
 2. Duplicate `.env.template` as `.env` and set the required environment variables.
 3. Run the script with `starter-kit`.
-4. Run linters with `lint`.
+4. Run linters with `lint-code`.

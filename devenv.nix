@@ -17,7 +17,7 @@
     '';
   };
 
-  scripts.lint.exec = ''
+  scripts.lint-code.exec = ''
     black --check .
     ruff check .
     pyright .
