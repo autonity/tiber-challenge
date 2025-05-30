@@ -98,6 +98,9 @@ As a validator operator, aim to optimise the quality of your validator oracle pr
 
 A "Midterm Report" will be published as a research paper on the *Autonity Papers* website [papers.autonity.org/](https://papers.autonity.org/) with detailed analysis of the calibration findings (systematic biases, conjectures about their causes, *etc.*) Participants can use the findings to tweak their oracle server configurations and have a more performant second half.
 
+>[!NOTE]
+>The "Midterm Report", analysis findings, and the data analysed by the report is publicly available at <https://github.com/autonity/oracle-submission-analysis>. The report can be viewed and built as a standalone quarto website as described in the repo [README](https://github.com/autonity/oracle-submission-analysis/blob/master/README.md). Publication of the report to [papers.autonity.org/](https://papers.autonity.org/) is pending.
+
 Participants will be asked to provide details of their oracle configurations and any changes they made after the Midterm Report via a Web-based form.
 
 A "Final Report" will be published on [papers.autonity.org](https://papers.autonity.org/) detailing the final scores of the participants, analysis of any improvement in computed ACU veracity over the second half, and practical best practice recommendations for oracle server configurations.
