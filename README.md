@@ -105,6 +105,9 @@ Participants will be asked to provide details of their oracle configurations and
 
 A "Final Report" will be published on [papers.autonity.org](https://papers.autonity.org/) detailing the final scores of the participants, analysis of any improvement in computed ACU veracity over the second half, and practical best practice recommendations for oracle server configurations.
 
+>[!NOTE]
+>The "Final Report", analysis findings, and the data analysed by the report is publicly available at <https://github.com/autonity/oracle-submission-analysis>. The report can be viewed and built as a standalone quarto website as described in the repo [README](https://github.com/autonity/oracle-submission-analysis/blob/master/README.md). Publication of the report to [papers.autonity.org/](https://papers.autonity.org/) is pending.
+
 ##### Points and scoring
 
 Points are scored based on the accuracy of your price reports when a committee member in comparison to the benchmark.
